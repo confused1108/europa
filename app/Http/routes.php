@@ -29,3 +29,6 @@ Route::get('/thanks','PagesController@thanks');
 
 //////////////////////////////////////////////
 Route::get('/admin/dashboard','AdminController@dashboard');
+Route::get('/admin/workers','AdminController@workers');
+Route::post('/admin/addworker/','AdminController@addworker');
+Route::post('/admin/addcategory/','AdminController@addcategory');
