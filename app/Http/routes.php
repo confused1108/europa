@@ -32,3 +32,7 @@ Route::get('/admin/dashboard','AdminController@dashboard');
 Route::get('/admin/workers','AdminController@workers');
 Route::post('/admin/addworker/','AdminController@addworker');
 Route::post('/admin/addcategory/','AdminController@addcategory');
+Route::get('/admin/editworker/{id}','AdminController@editworker');
+Route::post('/admin/updateworker/{id}','AdminController@updateworker');
+Route::get('/admin/subadmin','AdminController@subadmin');
+Route::post('/admin/addadmin/','AdminController@addadmin');

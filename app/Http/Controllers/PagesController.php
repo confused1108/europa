@@ -63,6 +63,9 @@ class PagesController extends Controller
         $admin->org_id=$id;
         $admin->name=$request->input('app_name');
         $admin->username=$request->input('username');
+        $admin->email=$request->input('app_email');
+        $admin->alt_email=$request->input('app_email_alt');
+        $admin->designation=$request->input('app_designation');
         $admin->password=sha1($request->input('password'));
         $admin->save();
 

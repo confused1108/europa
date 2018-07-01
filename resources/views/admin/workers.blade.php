@@ -12,7 +12,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-@include('admin.nvgbar');
+@include('admin.nvgbar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -43,7 +43,6 @@
                         <!-- form start -->
                         <form role="form" action="{{url('/admin/addworker')}}" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -153,7 +152,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div style="float: left;">
-                                                            <a href="edit_worker_details.php" class="btn btn-primary">Edit Details</a>
+                                                            <a href='<?php echo url("/admin/editworker/{$worker->worker_id}") ?>' class="btn btn-primary">Edit Details</a>
                                                             <a href="#" class="btn btn-primary">Delete</a>
                                                         </div>
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
