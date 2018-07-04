@@ -14,7 +14,6 @@ class UserController extends Controller
 {
     public function register_first(Request $request){
         $user=new User();
-//        $admin->save();
         $user->name=$request->input('name');
         $user->number=$request->input('number');
         $user->roll_no=$request->input('roll_no');
@@ -27,8 +26,17 @@ class UserController extends Controller
         $user->org_id=$org_id;
         $user->save();
         $categories['user_id']=$user->user_id;
+        $categories['org_id']=$org_id;
         echo json_encode($categories);
-        //echo $id;
-//        return redirect('/admin/subadmin');
     }
+    public function get_org(){
+
+        $orgs=array();
+        $orgs['organizations']=DB::table('organization')->select('org_name')->get();
+        echo json_encode($orgs);
+    }
+    public function register_second(Request $request){
+
+    }
+
 }
