@@ -36,3 +36,8 @@ Route::get('/admin/editworker/{id}','AdminController@editworker');
 Route::post('/admin/updateworker/{id}','AdminController@updateworker');
 Route::get('/admin/subadmin','AdminController@subadmin');
 Route::post('/admin/addadmin/','AdminController@addadmin');
+
+/////////////////////////////////////////////
+//////////////User API//////////////////////
+Route::post('/user/register/first','UserController@register_first');
+Route::post('/user/organizations','UserController@get_org');
