@@ -49,9 +49,34 @@ class UserController extends Controller
         $region=Region::where('region_name','=',$region_name)->where('org_id','=',$org_id)->firstOrFail();
         $region_id=$region->region_id;
         $user->region_id=$region_id;
-            
+        $save=$user->save();
+            if(!$save){
+            }
+            else{
+            }
         } else{
         }
     }
-
+    public function login(Request $request){
+        $token=$request->input('token');
+        if($token==""){
+        $email=$request->input('email');
+        $password=sha1($request->input('password'));
+        $users_count = DB::table('users')
+            ->where('email', '=', $email)
+            ->where('password', '=', $password)
+            ->count();
+        if($users_count>0){
+            $user=DB::table('admin')
+                ->where('email', '=', $email)
+                ->where('password', '=', $password)
+                ->first();
+            $org_id= $user->org_id;
+            $user_id= $user->user_id;
+        } else{
+        }
+           
+        } else{
+        }
+    }
 }
