@@ -80,7 +80,7 @@ class PagesController extends Controller
     }
     public function userlogin(Request $request){
         $username=$request->input('username');
-        $password=sha1($request->input('username'));
+        $password=sha1($request->input('password'));
         $users_count = DB::table('admin')
             ->where('username', '=', $username)
             ->where('password', '=', $password)

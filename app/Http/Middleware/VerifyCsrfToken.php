@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
         //
         '/user/register/first',
         '/user/organizations',
-        '/user/register/second'
+        '/user/register/second',
+        '/user/login'
     ];
 }
