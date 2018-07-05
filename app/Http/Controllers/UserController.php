@@ -37,7 +37,7 @@ class UserController extends Controller
     }
     public function register_second(Request $request){
         $token=$request->input('token');
-        if($token==""){
+        if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
         $id=$request->input('user_id');
         $user=User::find($id);
         $user->password=sha1($request->input('password'));
@@ -59,7 +59,7 @@ class UserController extends Controller
     }
     public function login(Request $request){
         $token=$request->input('token');
-        if($token==""){
+        if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
         $email=$request->input('email');
         $password=sha1($request->input('password'));
         $users_count = DB::table('users')
