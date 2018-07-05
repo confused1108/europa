@@ -42,3 +42,4 @@ Route::post('/admin/addadmin/','AdminController@addadmin');
 Route::post('/user/register/first','UserController@register_first');
 Route::post('/user/register/second','UserController@register_second');
 Route::post('/user/organizations','UserController@get_org');
+Route::post('/user/login','UserController@login');
