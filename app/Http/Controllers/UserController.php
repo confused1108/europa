@@ -36,7 +36,22 @@ class UserController extends Controller
         echo json_encode($orgs);
     }
     public function register_second(Request $request){
-
+        $token=$request->input('token');
+        if($token==""){
+        $id=$request->input('user_id');
+        $user=User::find($id);
+        $user->password=sha1($request->input('password'));
+        $user->email=$request->input('email');
+        $user->address=$request->input('address');
+        $user->org_id=$request->input('org_id');
+        $org_id=$request->input('org_id');
+        $region_name=$request->input('region_name');
+        $region=Region::where('region_name','=',$region_name)->where('org_id','=',$org_id)->firstOrFail();
+        $region_id=$region->region_id;
+        $user->region_id=$region_id;
+            
+        } else{
+        }
     }
 
 }
