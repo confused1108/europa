@@ -43,3 +43,5 @@ Route::post('/user/register/first','UserController@register_first');
 Route::post('/user/register/second','UserController@register_second');
 Route::post('/user/organizations','UserController@get_org');
 Route::post('/user/login','UserController@login');
+Route::post('/user/complaints','UserController@complaints');
+Route::post('/user/register/complain','UserController@make_complain');

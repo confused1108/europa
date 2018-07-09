@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Region;
+use App\Complaint;
+use App\Regions_link;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -121,17 +123,46 @@ class UserController extends Controller
         }
         echo json_encode($data);
     }
+    public function complaints(Request $request){
+        $org_id=$request->input('org_id');
+        $data=array();
+        $data['regions']=DB::table('regions')->select('region_name','region_id')->where('org_id','=',$org_id)->get();
+        $data['categories']=DB::table('categories')->select('cat_name','cat_id')->where('org_id','=',$org_id)->get();
+        echo json_encode($data);
+    }
     public function make_complain(Request $request){
         $token=$request->input('token');
         if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
             $com=new Complaint();
-            $com->problem=$request->input('problem');
-            $com->time_slot=$request->input('time_slot');
-            $com->category=$request->input('category')
             $com->user_id=$request->input('user_id');
+            $com->region_id=$request->input('region_id');
+            $region_id=$request->input('region_id');
+            $worker=Regions_link::where('region_id','=',$region_id)->firstOrFail();
+            $worker_id=$worker->worker_id;
+            $com->worker_id=$worker_id;
             $com->org_id=$request->input('org_id');
-            $com->status="0";
+            $com->cat_id=$request->input('cat_id');
+            $com->problem=$request->input('problem');
+            $com->time=$request->input('time');
             $com->date_registered=date();
+            $com->status="0";
+            $save=$com->save();
+            if(!$save){
+                $val="failed";
+            }
+            else{
+                $val="success";
+            }
+        } else{
+            $val="failed";
         }
+        $data=array(
+            "result"=>array(
+                array(
+                    "status"=>$val
+                )
+            )
+        );
+        echo json_encode($data);
     }
 }
