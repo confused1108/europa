@@ -12,12 +12,12 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
         '/user/register/first',
         '/user/organizations',
         '/user/register/second',
         '/user/login',
         '/user/complaints',
-        '/user/register/complain'
+        '/user/register/complain',
+        '/user/complaints/previous'
     ];
 }

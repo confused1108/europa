@@ -126,7 +126,6 @@ class UserController extends Controller
     public function complaints(Request $request){
         $org_id=$request->input('org_id');
         $data=array();
-        $data['regions']=DB::table('regions')->select('region_name','region_id')->where('org_id','=',$org_id)->get();
         $data['categories']=DB::table('categories')->select('cat_name','cat_id')->where('org_id','=',$org_id)->get();
         echo json_encode($data);
     }
@@ -163,6 +162,13 @@ class UserController extends Controller
                 )
             )
         );
+        echo json_encode($data);
+    }
+    public function check_complaints(Request $request){
+        $org_id=$request->input('org_id');
+        $user_id=$request->input('user_id');
+        $data=array();
+        $data['complaints']=DB::table('complaints')->select('problem','time','date_registered','date_resolved','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
         echo json_encode($data);
     }
 }
