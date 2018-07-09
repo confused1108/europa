@@ -121,4 +121,17 @@ class UserController extends Controller
         }
         echo json_encode($data);
     }
+    public function make_complain(Request $request){
+        $token=$request->input('token');
+        if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
+            $com=new Complaint();
+            $com->problem=$request->input('problem');
+            $com->time_slot=$request->input('time_slot');
+            $com->category=$request->input('category')
+            $com->user_id=$request->input('user_id');
+            $com->org_id=$request->input('org_id');
+            $com->status="0";
+            $com->date_registered=date();
+        }
+    }
 }
