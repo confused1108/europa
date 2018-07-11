@@ -33,7 +33,6 @@ class UserController extends Controller
         echo json_encode($categories);
     }
     public function get_org(){
-
         $orgs=array();
         $orgs['organizations']=DB::table('organization')->select('org_name')->get();
         echo json_encode($orgs);
@@ -129,6 +128,7 @@ class UserController extends Controller
         $data['categories']=DB::table('categories')->select('cat_name','cat_id')->where('org_id','=',$org_id)->get();
         echo json_encode($data);
     }
+    
     public function make_complain(Request $request){
         $token=$request->input('token');
         if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
@@ -168,7 +168,78 @@ class UserController extends Controller
         $org_id=$request->input('org_id');
         $user_id=$request->input('user_id');
         $data=array();
-        $data['complaints']=DB::table('complaints')->select('problem','time','date_registered','date_resolved','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
+        $data['complaints']=DB::table('complaints')->select('complaint_id','problem','time','date_registered','date_resolved','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
         echo json_encode($data);
     }
+    public function complaint_status(Request $request){
+        $org_id=$request->input('org_id');
+        $user_id=$request->input('user_id');
+        $complaint_id=$request->input('complaint_id');
+        $data=array();
+        $com=Complaint::find($complaint_id);
+        $com->status="1";
+        $save=$com->save();
+        if(!$save){
+            $val="failed";
+        }
+        else{
+            $val="success";
+        }
+        $data=array(
+            "result"=>array(
+                array(
+                    "status"=>$val
+                )
+            )
+        );
+        echo json_encode($data);
+    }
+    public function apply_leave(Request $request){
+        $token=$request->input('token');
+        if($token=="21075d7b49354135c052c6dc2cd226bd86aff6f7"){
+            $leave=new Leave();
+            $leave->user_id=$request->input('user_id');
+            $user_id=$request->input('user_id');
+            $user=User::where('user_id','=',$user_id)->firstOrFail();
+            $region_id=$user->region_id;
+            $address=$user->address;
+            $leave->region_id=$region_id;
+            $leave->org_id=$request->input('org_id');
+            $leave->address=$address;
+            $leave->reason=$request->input('reason');
+            $leave->baggage=$request->input('baggage');
+            $leave->address_during_leave=$request->input('address_during_leave');
+            $leave->remote_number=$request->input('remote_number');
+            $leave->from=$request->input('from');
+            $leave->to=$request->input('to');
+            $leave->date_registered=date();
+            $leave->status="0";
+            $save=$leave->save();
+            if(!$save){
+                $val="failed";
+            }
+            else{
+                //Write code to send notifications to wardens
+                $val="success";
+            }
+        } else{
+            $val="failed";
+        }
+        $data=array(
+            "result"=>array(
+                array(
+                    "status"=>$val
+                )
+            )
+        );
+        echo json_encode($data);
+    }
+    public function check_leave(Request $request){
+        $org_id=$request->input('org_id');
+        $user_id=$request->input('user_id');
+        $data=array();
+        $data['applications']=DB::table('leave_application')->select('from','to','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
+        echo json_encode($data);
+    }
+    
 }
