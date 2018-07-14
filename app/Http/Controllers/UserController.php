@@ -136,14 +136,15 @@ class UserController extends Controller
             $com->user_id=$request->input('user_id');
             $com->region_id=$request->input('region_id');
             $region_id=$request->input('region_id');
-            $worker=Regions_link::where('region_id','=',$region_id)->firstOrFail();
+            $cat_id=$request->input('cat_id');
+            $worker=Regions_link::where('region_id','=',$region_id)->where('cat_id','=',$cat_id)->firstOrFail();
             $worker_id=$worker->worker_id;
             $com->worker_id=$worker_id;
             $com->org_id=$request->input('org_id');
             $com->cat_id=$request->input('cat_id');
             $com->problem=$request->input('problem');
             $com->time=$request->input('time');
-            $com->date_registered=date();
+            $com->date_registered=date("d-m-y");
             $com->status="0";
             $save=$com->save();
             if(!$save){
