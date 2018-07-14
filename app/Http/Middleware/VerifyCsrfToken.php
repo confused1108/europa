@@ -17,7 +17,11 @@ class VerifyCsrfToken extends BaseVerifier
         '/user/register/second',
         '/user/login',
         '/user/complaints',
-        '/user/register/complain',
-        '/user/complaints/previous'
+        '/user/complaints/register',
+        '/user/complaints/previous',
+        '/user/complaints/status',
+        '/user/leave/apply',
+        '/user/leave/previous',
+        '/user/leave/'
     ];
 }

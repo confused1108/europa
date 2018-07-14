@@ -10,6 +10,7 @@ use App\User;
 use App\Region;
 use App\Complaint;
 use App\Regions_link;
+use App\Leave;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -169,15 +170,13 @@ class UserController extends Controller
         $org_id=$request->input('org_id');
         $user_id=$request->input('user_id');
         $data=array();
-        $data['complaints']=DB::table('complaints')->select('complaint_id','problem','time','date_registered','date_resolved','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
+        $data['complaints']=DB::table('complaints')->select('complain_id','problem','time','date_registered','date_resolved','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
         echo json_encode($data);
     }
     public function complaint_status(Request $request){
-        $org_id=$request->input('org_id');
-        $user_id=$request->input('user_id');
-        $complaint_id=$request->input('complaint_id');
+        $complain_id=$request->input('complain_id');
         $data=array();
-        $com=Complaint::find($complaint_id);
+        $com=Complaint::find($complain_id);
         $com->status="1";
         $save=$com->save();
         if(!$save){
@@ -205,15 +204,15 @@ class UserController extends Controller
             $region_id=$user->region_id;
             $address=$user->address;
             $leave->region_id=$region_id;
-            $leave->org_id=$request->input('org_id');
+            $leave->org_id=$user->org_id;
             $leave->address=$address;
             $leave->reason=$request->input('reason');
             $leave->baggage=$request->input('baggage');
             $leave->address_during_leave=$request->input('address_during_leave');
             $leave->remote_number=$request->input('remote_number');
-            $leave->from=$request->input('from');
-            $leave->to=$request->input('to');
-            $leave->date_registered=date();
+            $leave->from_date=$request->input('from');
+            $leave->to_date=$request->input('to');
+            $leave->date_registered=date("d/m/y");
             $leave->status="0";
             $save=$leave->save();
             if(!$save){
@@ -239,8 +238,11 @@ class UserController extends Controller
         $org_id=$request->input('org_id');
         $user_id=$request->input('user_id');
         $data=array();
-        $data['applications']=DB::table('leave_application')->select('from','to','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
+        $data['applications']=DB::table('leave_apply')->select('from_date','to_date','status')->where('org_id','=',$org_id)->where('user_id','=',$user_id)->get();
         echo json_encode($data);
     }
-    
+    public function particular_leave($id){;
+        $data=Leave::find($id);
+        echo json_encode($data);
+    }
 }
