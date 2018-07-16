@@ -243,7 +243,7 @@
 
 <div class="grid">
 
-    <form action="{{url('/user/login')}}" method="POST" class="form login">
+    <form action="{{url('/admin/login')}}" method="POST" class="form login">
 
         <div class="form__field">
             <label for="login__username"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden">Username</span></label>

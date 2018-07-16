@@ -24,7 +24,7 @@ Route::post('/apply/store',
         'as'=>'apply',
     ]);
 Route::post('/user/store','PagesController@organization');
-Route::post('user/login','PagesController@userlogin');
+Route::post('admin/login','PagesController@userlogin');
 Route::get('/thanks','PagesController@thanks');
 
 //////////////////////////////////////////////

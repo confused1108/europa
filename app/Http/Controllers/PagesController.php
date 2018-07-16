@@ -94,7 +94,8 @@ class PagesController extends Controller
             $admin_id= $admin->admin_id;
             Session::set('admin_id', $admin_id);
             Session::set('org_id', $org_id);
+            return redirect('/admin/dashboard');
         }
-        return redirect('/admin/dashboard');
     }
+    
 }
