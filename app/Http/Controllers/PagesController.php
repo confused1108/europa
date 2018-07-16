@@ -97,5 +97,5 @@ class PagesController extends Controller
             return redirect('/admin/dashboard');
         }
     }
-    
+
 }

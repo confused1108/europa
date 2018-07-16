@@ -220,6 +220,7 @@ class UserController extends Controller
             }
             else{
                 //Write code to send notifications to wardens
+                //using laravel push notifications instead of nodejs
                 $val="success";
             }
         } else{
