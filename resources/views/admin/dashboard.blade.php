@@ -7,3 +7,4 @@
  */
 echo Session::get('admin_id');
 ?>
+//check
