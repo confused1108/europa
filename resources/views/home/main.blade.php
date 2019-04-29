@@ -1,6 +1,8 @@
 @extends('layout.app')
 @section('content')
 <!--start-home-->
+
+<!--check-->
 <div class="banner" id="home">
     <div class="container">
         <div class="header-top">
